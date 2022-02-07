@@ -59,36 +59,36 @@ class word_relay:
 
             return random_word
     
-    def add_word(self, word):
-        with open(datapath) as f:
-            data = json.load(f)
-            f.close()
-        
-        if word in data["used_words"]:
-            return False
-        else:
-            data["used_words"].append(word)
-            with open(datapath, "w") as f:
-                json.dump(data, f, indent=2)
-                f.close()
-            return True
-
-    def remove_word(self, word):
-        with open(datapath) as f:
-            data = json.load(f)
-            f.close()
-        
-        if word in data["used_words"]:
-            data["used_words"].remove(word)
-            with open(datapath, "w") as f:
-                json.dump(data, f, indent=2)
-                f.close()
-            return True
-        else:
-            return False
+def add_word(word):
+    with open(datapath) as f:
+        data = json.load(f)
+        f.close()
     
-    def reset_game(self):
-        what_i_want = {"used_words": []}
+    if word in data["used_words"]:
+        return False
+    else:
+        data["used_words"].append(word)
         with open(datapath, "w") as f:
-            json.dump(what_i_want, f, indent=2)
+            json.dump(data, f, indent=2)
             f.close()
+        return True
+
+def remove_word(word):
+    with open(datapath) as f:
+        data = json.load(f)
+        f.close()
+    
+    if word in data["used_words"]:
+        data["used_words"].remove(word)
+        with open(datapath, "w") as f:
+            json.dump(data, f, indent=2)
+            f.close()
+        return True
+    else:
+        return False
+
+def reset_game():
+    what_i_want = {"used_words": []}
+    with open(datapath, "w") as f:
+        json.dump(what_i_want, f, indent=2)
+        f.close()
